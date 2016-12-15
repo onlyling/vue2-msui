@@ -1,4 +1,5 @@
 import Page from 'packages/page/page.vue'
+import ContentBlockTitle from 'packages/page/contentBlockTitle.vue'
 // import Bar from 'packages/bar/bar.vue'
 import BarNav from 'packages/bar/barNav.vue'
 import BarTab from 'packages/bar/barTab.vue'
@@ -12,6 +13,9 @@ import ButtonsTab from 'packages/button/buttons-tab.vue'
 import TabsPane from 'packages/tabs/tabsPane'
 import Tabs from 'packages/tabs/tabs'
 
+import listBlock from 'packages/lists/listBlock'
+import listBlockItem from 'packages/lists/listBlockItem'
+
 import Input from 'packages/input/input.vue'
 
 
@@ -21,6 +25,7 @@ const install = function (Vue, opts = {}) {
   }
 
   Vue.component(Page.name, Page)
+  Vue.component(ContentBlockTitle.name, ContentBlockTitle)
   // Vue.component(Bar.name, Bar)
   Vue.component(BarNav.name, BarNav)
   Vue.component(BarTab.name, BarTab)
@@ -33,6 +38,9 @@ const install = function (Vue, opts = {}) {
 
   Vue.component(TabsPane.name, TabsPane)
   Vue.component(Tabs.name, Tabs)
+
+  Vue.component(listBlock.name, listBlock)
+  Vue.component(listBlockItem.name, listBlockItem)
 
   Vue.component(Input.name, Input)
 
