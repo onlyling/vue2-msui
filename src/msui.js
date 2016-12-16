@@ -10,11 +10,14 @@ import Button from 'packages/button/button.vue'
 import ButtonsGroup from 'packages/button/buttons-group.vue'
 import ButtonsTab from 'packages/button/buttons-tab.vue'
 
-import TabsPane from 'packages/tabs/tabsPane'
-import Tabs from 'packages/tabs/tabs'
+import TabsPane from 'packages/tabs/tabsPane.vue'
+import Tabs from 'packages/tabs/tabs.vue'
 
-import listBlock from 'packages/lists/listBlock'
-import listBlockItem from 'packages/lists/listBlockItem'
+import ListBlock from 'packages/lists/listBlock.vue'
+import ListBlockItem from 'packages/lists/listBlockItem.vue'
+import ListBlockItemMedia from 'packages/lists/listBlockItemMedia.vue'
+
+import Card from 'packages/card/card.vue'
 
 import Input from 'packages/input/input.vue'
 
@@ -39,8 +42,11 @@ const install = function (Vue, opts = {}) {
   Vue.component(TabsPane.name, TabsPane)
   Vue.component(Tabs.name, Tabs)
 
-  Vue.component(listBlock.name, listBlock)
-  Vue.component(listBlockItem.name, listBlockItem)
+  Vue.component(ListBlock.name, ListBlock)
+  Vue.component(ListBlockItem.name, ListBlockItem)
+  Vue.component(ListBlockItemMedia.name, ListBlockItemMedia)
+
+  Vue.component(Card.name, Card)
 
   Vue.component(Input.name, Input)
 

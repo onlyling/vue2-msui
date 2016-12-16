@@ -1,5 +1,5 @@
 <template>
-  <div class="ms-list-block">
+  <div class="ms-list-block" :class="{'media-list': isMedia || isCheck, 'inset': isInset}">
     <ul>
       <slot></slot>
     </ul>
@@ -7,7 +7,12 @@
 </template>
 <script>
   export default {
-    name: 'ms-list-block'
+    name: 'ms-list-block',
+    props: {
+      isMedia: Boolean,
+      isCheck: Boolean,
+      isInset: Boolean
+    }
   }
 </script>
 <style lang="less">

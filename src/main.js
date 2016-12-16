@@ -89,6 +89,16 @@ const routes = [{
     goback: true,
     title: '列表'
   }
+}, {
+  path: '/card',
+  name: 'card',
+  component: (resolve) => {
+    return require(['./views/card.vue'], resolve)
+  },
+  meta: {
+    goback: true,
+    title: '卡片'
+  }
 }]
 
 const router = new VueRouter({

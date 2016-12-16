@@ -76,22 +76,23 @@
   /*right end*/
 
   /*left start*/
-  .slide-left-enter-active {
+  .ms-page.slide-left-enter-active {
     transition: all .4s ease;
     transform: translate3d(0%, 0, 0);
     -webkit-transform: translate3d(0%, 0, 0);
+    z-index: 1998;
   }
   
-  .slide-left-enter {
+  .ms-page.slide-left-enter {
     opacity: .5;
     transform: translate3d(-20%, 0, 0);
     -webkit-transform: translate3d(-20%, 0, 0);
+    z-index: 1998;
   }
   
   .ms-page.slide-left-leave {
     transform: translate3d(0, 0, 0);
     -webkit-transform: translate3d(0, 0, 0);
-    /*z-index: 2002;*/
   }
   
   .ms-page.slide-left-leave-active {
@@ -99,7 +100,6 @@
     opacity: 0.9;
     transform: translate3d(100%, 0, 0);
     -webkit-transform: translate3d(100%, 0, 0);
-    /*z-index: 2002;*/
   }
  /*left end*/
 
