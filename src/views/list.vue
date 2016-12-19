@@ -18,11 +18,6 @@
         <ms-list-block-item v-for="item in [1,2,3]" title="sheme" after="此处是文本内容..." :isLink="true"></ms-list-block-item>
       </ms-list-block>
 
-      <ms-content-block-title>带箭头</ms-content-block-title>
-      <ms-list-block>
-        <ms-list-block-item v-for="item in [1,2,3]" title="sheme" after="此处是文本内容..." :isLink="true"></ms-list-block-item>
-      </ms-list-block>
-
       <ms-content-block-title>曲目</ms-content-block-title>
       <ms-list-block :isMedia="true">
         <ms-list-block-item-media v-for="item in [1,2,3]" title="主标题" subTitle="副标题" text="此处是文本内容..." rightText="$12.43" imgUrl="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" link="home" :isLink="true"></ms-list-block-item-media>

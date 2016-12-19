@@ -90,6 +90,16 @@ const routes = [{
     title: '列表'
   }
 }, {
+  path: '/form',
+  name: 'form',
+  component: (resolve) => {
+    return require(['./views/form.vue'], resolve)
+  },
+  meta: {
+    goback: true,
+    title: '表单'
+  }
+}, {
   path: '/card',
   name: 'card',
   component: (resolve) => {
@@ -98,6 +108,16 @@ const routes = [{
   meta: {
     goback: true,
     title: '卡片'
+  }
+}, {
+  path: '/icon',
+  name: 'icon',
+  component: (resolve) => {
+    return require(['./views/icon.vue'], resolve)
+  },
+  meta: {
+    goback: true,
+    title: '图标'
   }
 }]
 

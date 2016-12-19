@@ -1,5 +1,5 @@
 <template>
-  <li class="item-content" :class="{'item-link': isLink}">
+  <li class="item-content" :class="{'item-link': isLink}" @click="hanlderClick">
     <div class="item-media" v-if="!!icon"><i class="icon" :class="['icon-'+icon]"></i></div>
     <div class="item-inner">
       <div class="item-title" v-text="title"></div>
@@ -17,6 +17,11 @@
       isLink: {
         type: Boolean,
         default: false
+      }
+    },
+    methods: {
+      hanlderClick(e){
+        this.$emit('click', e)
       }
     }
   }

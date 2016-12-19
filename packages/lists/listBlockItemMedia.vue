@@ -5,7 +5,7 @@
       class="item-content"
       :to="{path: link}"
       :tag="!!link ? 'a' : 'div'"
-      :class="{'item-link': isLink}"
+      :class="{'item-link': !!link}"
       >
 
       <div class="item-media" v-if="!!imgUrl"><img :src="imgUrl" :style="{width: imgWidth}"></div>
@@ -34,7 +34,6 @@
       title: String,
       subTitle: String,
       text: String,
-      isLink: Boolean,
       rightText: String,
       imgUrl: String,
       imgWidth: {
