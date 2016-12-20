@@ -24,8 +24,6 @@
 
         <ms-list-block-item-input label="复选">
           <ms-checkbox v-model="checkboxObj" label="1"></ms-checkbox>
-          <ms-checkbox v-model="checkboxObj" label="2"></ms-checkbox>
-          <ms-checkbox v-model="checkboxObj" label="3"></ms-checkbox>
         </ms-list-block-item-input>
 
       </ms-list-block>
@@ -42,13 +40,19 @@
     data() {
       return {
         switchObj: true,
-        checkboxObj: ['1', '2']
+        checkboxObj: ['1'],
+        checkboxObjs: ['1']
       }
     },
     methods: {
       sure() {
         console.log(this.switchObj)
         console.log(this.checkboxObj)
+      }
+    },
+    watch: {
+      checkboxObjs(val){
+        console.log(this.checkboxObjs)
       }
     }
   }

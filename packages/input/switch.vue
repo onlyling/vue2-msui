@@ -1,12 +1,12 @@
 <template>
   <label class="ms-label-switch">
-      <input type="checkbox"
-        :checked="selfModel"
-        @change="$emit('change', $event)"
-        v-model="model"
-        >
-      <div class="checkbox"></div>
-    </label>
+    <input type="checkbox"
+      :checked="selfModel"
+      @change="$emit('change', $event)"
+      v-model="model"
+      >
+    <div class="checkbox"></div>
+  </label>
 </template>
 <script>
   

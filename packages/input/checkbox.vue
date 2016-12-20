@@ -2,8 +2,8 @@
   <label class="label-checkbox">
     <input type="checkbox"
       :checked="selfModel"
-      @change="$emit('change', $event)"
-      v-model="model"
+      @change="$emit('input', selfModel)"
+      v-model="selfModel"
       :value="label"
       >
     <i class="icon icon-form-checkbox"></i>
@@ -22,25 +22,8 @@
         selfModel: false
       }
     },
-    computed: {
-      model: {
-        get() {
-          return this.selfModel
-        },
-        set(val) {
-          if (this.value !== undefined) {
-            this.$emit('input', val)
-          } else {
-            this.selfModel = val
-          }
-        }
-      }
-    },
     created() {
       this.selfModel = this.value
-    },
-    mounted() {
-      console.log(this.$el.getElementsByTagName('input')[0].checked)
     }
   }
 </script>
