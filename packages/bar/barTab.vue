@@ -1,5 +1,5 @@
 <template>
-  <nav class="ms-bar ms-bar-tab">
+  <nav class="bar bar-tab">
     <router-link v-for="item in nav" class="tab-item" :to="item.url" active-class="active">
       <span :class="['icon', getIcon(item.icon)]"></span>
       <span class="tab-label" v-html="item.text"></span>
@@ -25,6 +25,3 @@
     }
   }
 </script>
-<style lang="less">
-  @import './bar.less';
-</style>

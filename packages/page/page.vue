@@ -1,5 +1,5 @@
 <template>
-  <div class="ms-page">
+  <div class="page page-current">
     <slot></slot>
   </div>
 </template>
@@ -8,6 +8,3 @@
     name: 'ms-page'
   }
 </script>
-<style lang="less">
-  @import './page.less';
-</style>

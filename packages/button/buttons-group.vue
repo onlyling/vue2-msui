@@ -1,5 +1,5 @@
 <template>
-  <div class="ms-buttons-row">
+  <div class="buttons-row">
     <slot></slot>
   </div>
 </template>

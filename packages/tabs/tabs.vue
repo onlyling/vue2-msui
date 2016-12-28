@@ -1,3 +1,6 @@
+<style>
+  .buttons-tab{ overflow-y: auto; }
+</style>
 <script>
   export default {
     name: 'ms-tabs',
@@ -50,8 +53,8 @@
         const _tab = h('button', {
           // ms-tab-link ms-button
           class: [
-            'ms-tab-link',
-            'ms-button',
+            'tab-link',
+            'button',
             currentName === tab.index ? 'active' : '' // index 为子组件的name
           ],
           ref: 'tabs',
@@ -70,8 +73,8 @@
       })
 
       return (
-        <div class="ms-tabs">
-          <div class="ms-buttons-tab">
+        <div class="tabs">
+          <div class="buttons-tab">
             {tabs}
           </div>
           <div class="content-block">

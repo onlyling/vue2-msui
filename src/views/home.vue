@@ -1,20 +1,35 @@
 <template>
-  <ms-page>
-    <ms-bar-nav :title="$route.meta.title" :back="false"></ms-bar-nav>
-    <ms-bar-tab :nav="nav"></ms-bar-tab>
-    <ms-content>
-      <ms-content-block-title>慢慢来吧，骚年。样式易复制，交互难复现。</ms-content-block-title>
-      <ms-content-block-title>DEMO</ms-content-block-title>
-      <ms-list-block>
-        <ms-list-block-item v-for="item in demoList" :title="item.title" :after="item.progress" :isLink="true" @click="toGo(item.link)"></ms-list-block-item>
-      </ms-list-block>
-    </ms-content>
-  </ms-page>
+  <ms-pages :panelopen="panelOpen" paneldir="left">
+
+    <ms-page>
+      <ms-bar-nav :title="$route.meta.title" :back="false">
+        <a class="icon icon-me pull-left" slot="left" @click="togglePanel"></a>
+      </ms-bar-nav>
+      <ms-bar-tab :nav="nav"></ms-bar-tab>
+      <ms-content>
+        <ms-content-block-title>慢慢来吧，骚年。样式易复制，交互难复现。</ms-content-block-title>
+        <ms-content-block-title>DEMO</ms-content-block-title>
+        <ms-list-block>
+          <ms-list-block-item v-for="item in demoList" :title="item.title" :after="item.progress" :isLink="true" @click="toGo(item.link)"></ms-list-block-item>
+        </ms-list-block>
+      </ms-content>
+    </ms-page>
+
+    <ms-panel>
+      <div class="content-block">
+        <p>这是一个侧栏</p>
+        <p></p>
+        <p><a href="javascript: void(0);" @click="togglePanel">关闭</a></p>
+      </div>
+    </ms-panel>
+
+  </ms-pages>
 </template>
 <script>
   export default {
     data() {
       return {
+        panelOpen: false,
         nav: [{
           text: '首页',
           icon: 'home',
@@ -66,6 +81,9 @@
     methods: {
       toGo(link) {
         this.$router.push(link)
+      },
+      togglePanel() {
+        this.panelOpen = !this.panelOpen
       }
     },
     mounted(){

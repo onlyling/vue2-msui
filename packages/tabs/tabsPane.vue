@@ -1,5 +1,5 @@
 <template>
-  <div class="ms-tab-pane" v-show="show && $slots.default">
+  <div class="tab-pane" v-show="show && $slots.default">
     <slot></slot>
   </div>
 </template>

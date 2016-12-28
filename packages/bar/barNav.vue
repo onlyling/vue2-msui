@@ -1,5 +1,7 @@
 <template>
-  <header class="ms-bar ms-bar-nav">
+  <header class="bar bar-nav">
+    <slot name="left"></slot>
+    <slot name="right"></slot>
     <a class="icon icon-left pull-left" v-if="back" @click="goBack"></a>
     <h1 class="title" v-html="title"></h1>
   </header>
@@ -21,6 +23,3 @@
     }
   }
 </script>
-<style lang="less">
-  @import './bar.less';
-</style>

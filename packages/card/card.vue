@@ -1,6 +1,6 @@
 <template>
 
-  <div class="ms-card">
+  <div class="card">
 
     <div v-if="!!imgUrl" valign="bottom" class="card-header color-white no-border no-padding">
       <img class="card-cover" :src="imgUrl" :alt="imgAlt">
@@ -33,6 +33,3 @@
     }
   }
 </script>
-<style lang="less">
-  @import './cards.less';
-</style>

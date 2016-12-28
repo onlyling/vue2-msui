@@ -1,5 +1,5 @@
 <template>
-  <div class="ms-list-block" :class="{'media-list': isMedia || isCheck, 'inset': isInset}">
+  <div class="list-block" :class="{'media-list': isMedia || isCheck, 'inset': isInset}">
     <ul>
       <slot></slot>
     </ul>
@@ -16,5 +16,4 @@
   }
 </script>
 <style lang="less">
-  @import './lists.less';
 </style>

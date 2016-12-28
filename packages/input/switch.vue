@@ -1,5 +1,5 @@
 <template>
-  <label class="ms-label-switch">
+  <label class="label-switch">
     <input type="checkbox"
       :checked="selfModel"
       @change="$emit('change', $event)"
@@ -42,7 +42,3 @@
   }
 
 </script>
-
-<style lang="less">
-  @import './switch.less';
-</style>

@@ -1,14 +1,14 @@
 <template>
-  <button :disabled="disabled" class="ms-button"
+  <button :disabled="disabled" class="button"
     @click="handleClick"
     :autofocus="autofocus"
     :type="nativeType"
     :class="[
-        type ? 'ms-button-' + type : '',
-        size ? 'ms-button-' + size : '',
+        type ? 'button-' + type : '',
+        size ? 'button-' + size : '',
         { 
-          'ms-button-fill': fill,
-          'ms-button-round': round,
+          'button-fill': fill,
+          'button-round': round,
           'disabled': disabled
         }
       ]"
@@ -41,9 +41,6 @@
     }
   }
 </script>
-<style lang="less">
-  
-@import './buttons.less';
-
-
+<style>
+  button.button{width: 100%;}
 </style>

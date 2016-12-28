@@ -23,6 +23,3 @@
     }
   }
 </script>
-<style lang="less">
-  @import './forms.less';
-</style>

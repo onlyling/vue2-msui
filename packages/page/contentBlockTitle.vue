@@ -12,7 +12,7 @@
       return h(
           this.tag,
           {
-            'class': ['ms-content-block-title']
+            'class': ['content-block-title']
           },
           this.$slots.default
         )

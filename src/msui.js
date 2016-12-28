@@ -1,10 +1,11 @@
+import Pages from 'packages/page/pages.vue'
 import Page from 'packages/page/page.vue'
+import Panel from 'packages/page/panel.vue'
+import Content from 'packages/page/content.vue'
 import ContentBlockTitle from 'packages/page/contentBlockTitle.vue'
-// import Bar from 'packages/bar/bar.vue'
+
 import BarNav from 'packages/bar/barNav.vue'
 import BarTab from 'packages/bar/barTab.vue'
-
-import Content from 'packages/content/content.vue'
 
 import Button from 'packages/button/button.vue'
 import ButtonsGroup from 'packages/button/buttons-group.vue'
@@ -30,9 +31,11 @@ const install = function (Vue, opts = {}) {
     return
   }
 
+  Vue.component(Pages.name, Pages)
   Vue.component(Page.name, Page)
+  Vue.component(Panel.name, Panel)
   Vue.component(ContentBlockTitle.name, ContentBlockTitle)
-  // Vue.component(Bar.name, Bar)
+
   Vue.component(BarNav.name, BarNav)
   Vue.component(BarTab.name, BarTab)
 
@@ -64,6 +67,5 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 module.exports = {
   version: '0.0.1',
-  install,
-  Input
+  install
 }
