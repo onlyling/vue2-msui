@@ -6,50 +6,9 @@ import msui from './msui'
 Vue.use(VueRouter)
 Vue.use(msui)
 
-const Foo = {
-  template: '<div class="ms-page foo"><p><router-link to="/bar">Go to Bar</router-link></p></div>'
-}
-const Bar = {
-  template: '<div class="ms-page bar"><p><router-link to="/foo">Go to Foo</router-link></p><br><br><br><p><router-link to="/bar/1">Go to Bar1</router-link></p></div>'
-}
-const Bar1 = {
-  template: '<div class="ms-page bar2"><p><router-link to="/bar">Go to Bar</router-link></p><br><br><br><p><router-link to="/bar/1/2">Go to Bar12</router-link></p></div>'
-}
-const Bar12 = {
-  template: '<div class="ms-page bar"><p><router-link to="/bar">Go to Bar</router-link></p><br><br><br><p><router-link to="/bar/1">Go to Bar1</router-link></p></div>'
-}
-
 const routes = [{
   path: '/',
   redirect: '/home'
-}, {
-  path: '/foo',
-  name: 'foo',
-  component: Foo,
-  meta: {
-    isfade: true
-  }
-}, {
-  path: '/bar',
-  name: 'bar',
-  component: Bar,
-  meta: {
-    isfade: true
-  }
-}, {
-  path: '/bar/1',
-  name: 'bar1',
-  component: Bar1,
-  meta: {
-    goback: true
-  }
-}, {
-  path: '/bar/1/2',
-  name: 'bar12',
-  component: Bar12,
-  meta: {
-    goback: true
-  }
 }, {
   path: '/home',
   name: 'home',
@@ -58,6 +17,16 @@ const routes = [{
   },
   meta: {
     title: '首页'
+  }
+}, {
+  path: '/about',
+  name: 'about',
+  component: (resolve) => {
+    return require(['./views/about.vue'], resolve)
+  },
+  meta: {
+    goback: true,
+    title: '关于我们'
   }
 }, {
   path: '/button',

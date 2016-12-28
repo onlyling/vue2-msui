@@ -16,11 +16,29 @@
     </ms-page>
 
     <ms-panel>
+
+      <a class="icon icon-left pull-right" style="margin-top: 1rem; margin-right: 1rem;" @click="togglePanel"></a>
+
       <div class="content-block">
-        <p>这是一个侧栏</p>
-        <p></p>
-        <p><a href="javascript: void(0);" @click="togglePanel">关闭</a></p>
+
+        <div class="content-padded text-center">
+          <img class="avatar" src="//gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg">
+          <p>你的名字。</p>
+        </div>
+
+        <ul class="home-panel-links">
+          <router-link
+            v-for="item in menu"
+            class="item-content"
+            :to="item.link"
+            tag="li"
+            v-text="item.text"
+            >
+          </router-link>
+        </ul>
+
       </div>
+
     </ms-panel>
 
   </ms-pages>
@@ -30,6 +48,12 @@
     data() {
       return {
         panelOpen: false,
+        menu: [{
+          text: '关于我们',
+          link: {
+            name: 'about'
+          }
+        }],
         nav: [{
           text: '首页',
           icon: 'home',
@@ -91,3 +115,8 @@
     }
   }
 </script>
+<style lang="less">
+  .avatar{ width: 6rem; height: 6rem; border-radius: 3rem; }
+  .home-panel-links { list-style: none; padding: 0;
+  }
+</style>
