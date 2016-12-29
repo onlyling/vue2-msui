@@ -21,9 +21,12 @@ import ListBlockItemInput from 'packages/lists/listBlockItemInput.vue'
 
 import Card from 'packages/card/card.vue'
 
+import Swiper from 'packages/swiper/swiper.vue'
+
 import Input from 'packages/input/input.vue'
 import Switch from 'packages/input/switch.vue'
 import Checkbox from 'packages/input/checkbox.vue'
+
 
 
 const install = function (Vue, opts = {}) {
@@ -54,6 +57,8 @@ const install = function (Vue, opts = {}) {
   Vue.component(ListBlockItemInput.name, ListBlockItemInput)
 
   Vue.component(Card.name, Card)
+
+  Vue.component(Swiper.name, Swiper)
 
   Vue.component(Input.name, Input)
   Vue.component(Switch.name, Switch)

@@ -88,6 +88,16 @@ const routes = [{
     goback: true,
     title: '图标'
   }
+}, {
+  path: '/swiper',
+  name: 'swiper',
+  component: (resolve) => {
+    return require(['./views/swiper.vue'], resolve)
+  },
+  meta: {
+    goback: true,
+    title: '轮播'
+  }
 }]
 
 const router = new VueRouter({

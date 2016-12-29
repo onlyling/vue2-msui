@@ -99,6 +99,10 @@
           title: '图标',
           progress: '100%',
           link: 'icon'
+        }, {
+          title: '轮播',
+          progress: '50%',
+          link: 'swiper'
         }]
       }
     },
