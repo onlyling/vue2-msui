@@ -16,13 +16,18 @@
       
     </ul>
 
+    <ul class="dots" v-if="dots">
+      <li v-for="(item, i) in imglist" :class="{active: i == imgIndex}"></li>
+    </ul>
+
   </div>
 </template>
 <script>
   export default {
     name: 'ms-swiper',
     props: {
-      imglist: Array
+      imglist: Array,
+      dots: Boolean
     },
     data() {
       return {
@@ -103,19 +108,16 @@
 
           // 归零
           let TARGET_X = -(self.imgIndex * self.winWidth)
-          let SPACE_X = TARGET_X - self.tLeft
-
+          let SPACE_X = +((TARGET_X - self.tLeft) / 15).toFixed(3)
+          let SPACE_TIME = 0
           self.timer = () => {
 
-            if(Math.abs(SPACE_X) <= 4){
-              self.tLeft += SPACE_X
+            if(SPACE_TIME >= 15){
+              self.tLeft = TARGET_X
               return;
             }
-
-            let x = Math.floor(SPACE_X / 10)
-            SPACE_X = SPACE_X - x
-
-            self.tLeft += x
+            self.tLeft += SPACE_X
+            SPACE_TIME++
 
             setTimeout(self.timer, 16)
 
@@ -141,11 +143,16 @@
 </script>
 <style lang="less">
   
-  .ms-swiper{ width: 100%; height: 16rem; overflow: hidden; background-color: #fff;
+  .ms-swiper{ width: 100%; height: 16rem; overflow: hidden; background-color: #fff; position: relative;
     ul{ padding: 0; margin: 0; list-style: none; overflow: hidden;}
     .li-img { float: left; height: 100%; overflow: hidden;
       a { display: block;}
       img { max-width: 100%; max-height: 100%; display: block; margin: 0 auto;}
+    }
+    .dots{ text-align: center; margin-top: -1rem; z-index: 5; position: absolute; width: 100%;
+      li{ display: inline-block; width: .5rem; height: .5rem; border-radius: .25rem; background-color: #000; margin: 0 .2rem; opacity: .2;
+        &.active{ background-color: #007aff; opacity: 1;}
+      }
     }
   }
 
