@@ -23,6 +23,8 @@ import Card from 'packages/card/card.vue'
 
 import Swiper from 'packages/swiper/swiper.vue'
 
+import Iscroll from 'packages/iscroll/iscroll.vue'
+
 import Input from 'packages/input/input.vue'
 import Switch from 'packages/input/switch.vue'
 import Checkbox from 'packages/input/checkbox.vue'
@@ -59,6 +61,8 @@ const install = function (Vue, opts = {}) {
   Vue.component(Card.name, Card)
 
   Vue.component(Swiper.name, Swiper)
+
+  Vue.component(Iscroll.name, Iscroll)
 
   Vue.component(Input.name, Input)
   Vue.component(Switch.name, Switch)

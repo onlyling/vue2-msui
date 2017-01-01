@@ -103,6 +103,10 @@
           title: '轮播',
           progress: '50%',
           link: 'swiper'
+        }, {
+          title: 'iscroll',
+          progress: '50%',
+          link: 'iscroll'
         }]
       }
     },
