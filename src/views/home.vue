@@ -107,6 +107,10 @@
           title: 'iscroll',
           progress: '50%',
           link: 'iscroll'
+        }, {
+          title: 'iscroll2',
+          progress: 'X',
+          link: 'iscroll2'
         }]
       }
     },

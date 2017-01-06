@@ -1,12 +1,12 @@
 <template>
   <div class="ms-iscroll">
-    <div class="ms-iscroll-content" :style="{transform: 'translate3d(0, ' + scrollTop + 'px, 0)'}">
+    <div class="ms-iscroll-content" :style="{ 'transition-duration': scrollTopDuration + 'ms', 'transform': 'translate(0, ' + scrollTop + 'px) translateZ(0)'}">
       <slot></slot>
       <div class="infinite-scroll-preloader" v-if="!!infiniteToRefresh">
         <div class="preloader"></div>
       </div>
     </div>
-    <div class="ms-iscroll-bar" v-if="scrollbars" :style="{top: barTop + 'px'}"></div>
+    <div class="ms-iscroll-bar" v-if="scrollbars" :style="{'transition-duration': barTopDuration + 'ms', 'top': barTop + 'px'}"></div>
     <div class="pull-to-refresh-layer ms-pull-to-refresh" v-show="showPTR" :class="[PTRClassName]">
       <div class="preloader"></div>
       <div class="pull-to-refresh-arrow"></div>
@@ -43,10 +43,14 @@
         barHeight: 0,
         barTop: 0,
         scrollTop: 0,
+        scrollTopDuration: 600,
+        barTopDuration: 600,
         barHideTimer: null,
         scrollTopTimer: null,
         showPTR: false,
-        loading: false
+        loading: false,
+        pullToRefreshLoading: false,
+        infiniteToRefreshLoading: false
       }
     },
     computed: {
@@ -59,7 +63,7 @@
       PTRClassName() {
         if (!!this.pullToRefresh) {
 
-          if (this.loading == true) {
+          if (this.pullToRefreshLoading == true) {
             return 'loading'
           }
 
@@ -87,6 +91,7 @@
       let MOVED = 0
       let START_Y = 0
       let START_STATIC_Y = 0
+      let MOVE_TIME = 0
 
       self.startHandler = (event) => {
 
@@ -99,17 +104,19 @@
             clearTimeout(self.barHideTimer)
           }
           self.listHeight = domList.offsetHeight
+          MOVE_TIME = (new Date()).getTime()
+          self.scrollTopDuration = 0
+          self.barTopDuration = 0
         }
 
       }
 
       self.moveHandler = (event) => {
 
-        if (event.targetTouches.length === 1) {
+        // 解决手机上滑动卡顿
+        event.preventDefault()
 
-          if (self.loading) {
-            return
-          }
+        if (event.targetTouches.length === 1) {
 
           const _touch = event.targetTouches[0]
           let moved = _touch.pageY - START_Y
@@ -120,17 +127,23 @@
 
             scrollTop = Math.floor(scrollTop / 2)
 
-          }
-
-          let maxY = -(self.listHeight - self.boxHeight)
-          if ( scrollTop < maxY) {
-
-            scrollTop = maxY + Math.floor((scrollTop - maxY) / 3 * 2)
+            if (self.pullToRefreshLoading) {
+              scrollTop = 0
+            }
 
           }
 
+          let maxY = -self.listMaxScrollTop
+          if ( scrollTop < -self.listMaxScrollTop) {
+
+            scrollTop = -self.listMaxScrollTop + Math.floor((scrollTop + self.listMaxScrollTop) / 3 * 2)
+
+          }
 
           self.scrollTop = scrollTop
+
+          self.scrollTopDuration = 0
+          self.barTopDuration = 0
 
         }
 
@@ -140,14 +153,21 @@
 
         if (event.changedTouches.length === 1) {
 
-          if (self.loading) {
-            return
-          }
+          self.scrollTopDuration = 600
+          self.barTopDuration = 600
           
           const _touch = event.changedTouches[0]
           let moved = _touch.pageY - START_Y
           let scrollTop = START_STATIC_Y + moved
-          
+          const _time = (new Date()).getTime() - MOVE_TIME
+
+          // 快速滑动
+          if (scrollTop < 0 && scrollTop >= -self.listMaxScrollTop) {
+            
+            self.setTransition(_time, moved)
+
+          }
+
           // 临界点的一些判断
           if (scrollTop > 0) {
 
@@ -212,26 +232,29 @@
       }
     },
     methods: {
-      setScrollTop(SPACE_X, direction) {
+      setScrollTop(SPACE_Y, direction, critical = true) {
+        /**
+         * SPACE_Y 间隔距离
+         * direction 方向 true 上 false 下
+         * critical 是否是临界点 默认true
+         */
 
-        let self = this
-        let x = SPACE_X / 10
-        let SPACE_TIME = 0
-
-        self.scrollTopTimer = () => {
-          if (SPACE_TIME >= 10) {
-            self.scrollTop = direction ? 0 : -self.listMaxScrollTop
-            return
-          }
-
-          self.scrollTop -= x
-          SPACE_TIME ++
-
-          setTimeout(self.scrollTopTimer, 16)
-
+        if (this.pullToRefreshLoading) {
+          return
         }
 
-        self.scrollTopTimer()
+        let self = this
+        let TARGET_Y = self.scrollTop - SPACE_Y
+
+        if (direction && TARGET_Y > 0) {
+          TARGET_Y = 0
+        }
+
+        if (!direction && TARGET_Y < -self.listMaxScrollTop) {
+          TARGET_Y = -self.listMaxScrollTop
+        }
+
+        self.scrollTop = TARGET_Y
 
       },
       setBarTop() {
@@ -239,21 +262,55 @@
         let self = this
         let barTop = -(+(self.scrollTop / self.listMaxScrollTop * self.barMaxTop).toFixed(3))
 
+        if (barTop <= 0) {
+          barTop = 0
+        }
+
+        if (barTop >= self.barMaxTop) {
+          barTop = self.barMaxTop
+        }
+
         self.barTop = barTop
+
+      },
+      setTransition(times, moved) {
+
+        let self = this
+        let SPACE_Y = 0
+        let _distance = moved >= 0
+        let _moved = Math.abs(moved)
+
+        if (times <= 100 && _moved <= 400) {
+          SPACE_Y = self.boxHeight * 2.5
+        }
+
+        if (times <= 200 && _moved <= 400) {
+          SPACE_Y = self.boxHeight * 2
+        }
+
+        if (times <= 250 && _moved <= 400) {
+          SPACE_Y = self.boxHeight * 1.5
+        }
+
+        if (times <= 300 && _moved <= 400) {
+          SPACE_Y = self.boxHeight
+        }
+
+        SPACE_Y = Math.floor(SPACE_Y) * Math.pow(-1, _distance ? 1 : 2)
+
+        self.setScrollTop(SPACE_Y, _distance, false)
 
       },
       PullToRefresh() {
         let self = this
-        setTimeout(() => {
-          self.scrollTopTimer = null
-        }, 0)
         self.scrollTop = self.$el.querySelector('.ms-pull-to-refresh').offsetHeight
-        if (self.loading) {
+
+        if (self.pullToRefreshLoading) {
             return
         } else {
-          self.loading = true
+          self.pullToRefreshLoading = true
           self.pullToRefresh(() => {
-            self.loading = false
+            self.pullToRefreshLoading = false
             self.scrollTop = 0
           })
         }
@@ -274,10 +331,10 @@
 </script>
 <style lang="less">
   .ms-iscroll{ position: relative; background-color: #f5f5f5; height: 100%; overflow: hidden;
-    .ms-iscroll-bar{ position: absolute; width: 4px; height: 2rem; border-radius: 2px; right: 0; top: 0; background-color: #000; opacity: 0; transition: opacity .5s;
+    .ms-iscroll-bar{ position: absolute; width: 4px; height: 3rem; border-radius: 2px; right: 0; top: 0; background-color: #000; opacity: 0; transition: all .5s; transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
       &.active{ opacity: .4;}
     }
-    .ms-iscroll-content{ overflow: hidden;}
+    .ms-iscroll-content{ overflow: hidden; transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);}
     .ms-pull-to-refresh{ position: absolute; width: 100%; top: 0; left: 0;
       &.down .pull-to-refresh-arrow{ transform: rotate(180deg);}
       &.loading{
