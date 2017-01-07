@@ -5,7 +5,7 @@
 
       <ms-content-block-title>图标、标题和副标题</ms-content-block-title>
       <ms-list-block>
-        <ms-list-block-item v-for="item in [1,2,3]" title="sheme" after="此处是文本内容..." icon="home"></ms-list-block-item>
+        <ms-list-block-item v-for="item in new Array(200)" title="sheme" after="此处是文本内容..." icon="home"></ms-list-block-item>
       </ms-list-block>
 
       <ms-content-block-title>标题和副标题</ms-content-block-title>

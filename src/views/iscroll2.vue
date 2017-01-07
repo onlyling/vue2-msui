@@ -19,7 +19,7 @@
   export default {
     data() {
       return {
-        list: new Array(30)
+        list: new Array(200)
       }
     },
     methods: {

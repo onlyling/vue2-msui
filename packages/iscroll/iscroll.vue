@@ -153,8 +153,8 @@
 
         if (event.changedTouches.length === 1) {
 
-          self.scrollTopDuration = 600
-          self.barTopDuration = 600
+          self.scrollTopDuration = 1500
+          self.barTopDuration = 1500
           
           const _touch = event.changedTouches[0]
           let moved = _touch.pageY - START_Y
@@ -279,24 +279,10 @@
         let SPACE_Y = 0
         let _distance = moved >= 0
         let _moved = Math.abs(moved)
+        let _speed = _moved / times
+        let _destination = _speed * 1500
 
-        if (times <= 100 && _moved <= 400) {
-          SPACE_Y = self.boxHeight * 2.5
-        }
-
-        if (times <= 200 && _moved <= 400) {
-          SPACE_Y = self.boxHeight * 2
-        }
-
-        if (times <= 250 && _moved <= 400) {
-          SPACE_Y = self.boxHeight * 1.5
-        }
-
-        if (times <= 300 && _moved <= 400) {
-          SPACE_Y = self.boxHeight
-        }
-
-        SPACE_Y = Math.floor(SPACE_Y) * Math.pow(-1, _distance ? 1 : 2)
+        SPACE_Y = Math.round(_destination / 3) * (_distance ? -1 : 1)
 
         self.setScrollTop(SPACE_Y, _distance, false)
 
@@ -331,10 +317,10 @@
 </script>
 <style lang="less">
   .ms-iscroll{ position: relative; background-color: #f5f5f5; height: 100%; overflow: hidden;
-    .ms-iscroll-bar{ position: absolute; width: 4px; height: 3rem; border-radius: 2px; right: 0; top: 0; background-color: #000; opacity: 0; transition: all .5s; transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    .ms-iscroll-bar{ position: absolute; width: 4px; height: 3rem; border-radius: 2px; right: 0; top: 0; background-color: #000; opacity: 0; transition: all .5s; transition-timing-function: ease-out;
       &.active{ opacity: .4;}
     }
-    .ms-iscroll-content{ overflow: hidden; transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);}
+    .ms-iscroll-content{ overflow: hidden; transition-timing-function: ease-out;}
     .ms-pull-to-refresh{ position: absolute; width: 100%; top: 0; left: 0;
       &.down .pull-to-refresh-arrow{ transform: rotate(180deg);}
       &.loading{
