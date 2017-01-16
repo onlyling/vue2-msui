@@ -107,6 +107,10 @@
           title: 'iscroll',
           progress: '50%',
           link: 'iscroll'
+        }, {
+          title: '对话框',
+          progress: '20%',
+          link: 'modal'
         }]
       }
     },

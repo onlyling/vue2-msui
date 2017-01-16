@@ -29,6 +29,7 @@ import Input from 'packages/input/input.vue'
 import Switch from 'packages/input/switch.vue'
 import Checkbox from 'packages/input/checkbox.vue'
 
+import Modal from 'packages/modal/index'
 
 
 const install = function (Vue, opts = {}) {
@@ -67,6 +68,10 @@ const install = function (Vue, opts = {}) {
   Vue.component(Input.name, Input)
   Vue.component(Switch.name, Switch)
   Vue.component(Checkbox.name, Checkbox)
+
+  Vue.prototype.$modal = Modal;
+  Vue.prototype.$alert = Modal.alert;
+  Vue.prototype.$confirm = Modal.confirm;
 
 }
 

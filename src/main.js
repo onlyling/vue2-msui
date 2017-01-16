@@ -108,6 +108,16 @@ const routes = [{
     goback: true,
     title: 'iscroll'
   }
+}, {
+  path: '/modal',
+  name: 'modal',
+  component: (resolve) => {
+    return require(['./views/modal.vue'], resolve)
+  },
+  meta: {
+    goback: true,
+    title: '对话框'
+  }
 }]
 
 const router = new VueRouter({
