@@ -5,7 +5,7 @@
 
     <ms-content>
 
-      <ms-iscroll :fade-scrollbars="false" :pull-to-refresh="pullToRefresh" :infinite-to-refresh="infiniteToRefresh">
+      <ms-iscroll>
         <ms-list-block>
           <ms-list-block-item v-for="item in list" title="sheme" after="此处是文本内容..." icon="home" @click.native="goHome"></ms-list-block-item>
         </ms-list-block>
@@ -19,24 +19,12 @@
   export default {
     data() {
       return {
-        list: new Array(20)
+        list: new Array(200)
       }
     },
     methods: {
       goHome() {
         this.$router.push({path: '/'})
-      },
-      pullToRefresh(next) {
-        setTimeout(() => {
-          this.list = new Array(20)
-          next()
-        }, 2000)
-      },
-      infiniteToRefresh(next) {
-        setTimeout(() => {
-          this.list = this.list.concat(new Array(20))
-          next()
-        }, 2000)
       }
     }
   }

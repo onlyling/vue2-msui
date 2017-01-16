@@ -118,6 +118,16 @@ const routes = [{
     goback: true,
     title: '对话框'
   }
+}, {
+  path: '/iscroll2',
+  name: 'iscroll2',
+  component: (resolve) => {
+    return require(['./views/iscroll2.vue'], resolve)
+  },
+  meta: {
+    goback: true,
+    title: 'iscroll2'
+  }
 }]
 
 const router = new VueRouter({

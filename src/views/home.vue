@@ -3,21 +3,21 @@
 
     <ms-page>
       <ms-bar-nav :title="$route.meta.title" :back="false">
-        <a class="icon icon-me pull-left" slot="left" @click="togglePanel"></a>
+        <a class="icon icon-me pull-left" slot="left" @click="togglePanel"> </a>
       </ms-bar-nav>
-      <ms-bar-tab :nav="nav"></ms-bar-tab>
+      <ms-bar-tab :nav="nav"> </ms-bar-tab>
       <ms-content>
         <ms-content-block-title>慢慢来吧，骚年。样式易复制，交互难复现。</ms-content-block-title>
         <ms-content-block-title>DEMO</ms-content-block-title>
         <ms-list-block>
-          <ms-list-block-item v-for="item in demoList" :title="item.title" :after="item.progress" :isLink="true" @click="toGo(item.link)"></ms-list-block-item>
+          <ms-list-block-item v-for="item in demoList" :title="item.title" :after="item.progress" :isLink="true" @click="toGo(item.link)"> </ms-list-block-item>
         </ms-list-block>
       </ms-content>
     </ms-page>
 
     <ms-panel>
 
-      <a class="icon icon-left pull-right" style="margin-top: 1rem; margin-right: 1rem;" @click="togglePanel"></a>
+      <a class="icon icon-left pull-right" style="margin-top: 1rem; margin-right: 1rem;" @click="togglePanel"> </a>
 
       <div class="content-block">
 
@@ -33,8 +33,7 @@
             :to="item.link"
             tag="li"
             v-text="item.text"
-            >
-          </router-link>
+            > </router-link>
         </ul>
 
       </div>
@@ -111,6 +110,10 @@
           title: '对话框',
           progress: '20%',
           link: 'modal'
+        }, {
+          title: 'iscroll2',
+          progress: 'X',
+          link: 'iscroll2'
         }]
       }
     },

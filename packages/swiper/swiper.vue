@@ -62,6 +62,9 @@
 
       self.moveHandler = (event) => {
 
+        // 解决手机上滑动卡顿
+        event.preventDefault()
+
         if (event.targetTouches.length === 1) {
           const _touch = event.targetTouches[0]
           MOVED = _touch.pageX - START_X
