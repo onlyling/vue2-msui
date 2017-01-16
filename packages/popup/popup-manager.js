@@ -78,11 +78,23 @@ const PopupManager = {
     const modalStack = this.modalStack
     const modalDom = getModal()
 
+    const topItem = modalStack[modalStack.length - 1]
+
     if (modalStack.length - 1 == 0) {
       modalDom.classList.remove('modal-overlay-visible')
     }
 
-    modalStack.pop()
+    if (topItem.id === id) {
+      modalStack.pop()
+    } else {
+      for (let i = modalStack.length - 1; i >= 0; i--) {
+        if (modalStack[i].id === id) {
+          modalStack.splice(i, 1);
+          break;
+        }
+      }
+    }
+
 
   }
 }

@@ -39,11 +39,6 @@ import Popup from '../popup'
       handleAction(cb) {
         cb && cb()
         this.close()
-      },
-      close() {
-        
-        this.doClose()
-
       }
     },
     mounted(){

@@ -95,6 +95,10 @@ export default {
     },
     doClose() {
 
+      if (!this.value) {
+        return
+      }
+
       this.value = false
       this.opened = false
 
