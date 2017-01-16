@@ -2,13 +2,21 @@ import PopupManager from './popup-manager'
 
 let idSeed = 1
 
+const getDOM = function (dom) {
+  if (dom.nodeType === 3) {
+    dom = dom.nextElementSibling || dom.nextSibling
+    getDOM(dom)
+  }
+  return dom
+}
+
 export default {
   props: {
-    show: {
+    value: {
       type: Boolean,
       default: false
     },
-    overlay: {
+    modal: {
       type: Boolean,
       default: true
     }
@@ -27,11 +35,26 @@ export default {
     PopupManager.closeModal(this._popupId)
 
   },
+  data() {
+    return {
+      opened: false,
+      rendered: false
+    }
+  },
   watch: {
-    show(val) {
+    value(val) {
+
+      console.log('popup-val:' + val)
 
       if (val) {
-        this.open()
+        if (!this.rendered) {
+          this.rendered = true
+          this.$nextTick(() => {
+            this.open()
+          })
+        } else {
+          this.open()
+        }
       } else {
         this.close()
       }
@@ -39,7 +62,47 @@ export default {
     }
   },
   methods: {
-    open() {}
+    open() {
+
+      if (!this.rendered) {
+        this.rendered = true
+      }
+      this.doOpen()
+    },
+    doOpen() {
+
+      if (this.opened) {
+        return
+      }
+
+      this.$emit('input', true)
+
+      const dom = getDOM(this.$el)
+
+      const modal = this.modal
+
+      if (modal) {
+        PopupManager.openModal(this._popupId, PopupManager.nextZIndex(), dom)
+      }
+
+      dom.style.zIndex = PopupManager.nextZIndex()
+
+      this.opened = true
+
+    },
+    close() {
+      this.doClose()
+    },
+    doClose() {
+
+      this.value = false
+      this.opened = false
+
+      this.$emit('input', false)
+
+      PopupManager.closeModal(this._popupId)
+
+    }
   }
 
 }

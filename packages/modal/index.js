@@ -40,11 +40,14 @@ const showNextMsg = () => {
     document.body.appendChild(instance.$el)
 
     Vue.nextTick(() => {
-      instance.show = true
+
       instance.marginTop = -(instance.$el.offsetHeight / 2)
-      setTimeout(() => {
-        instance.modalIn = true
-      }, 5)
+
+      instance.value = true
+
+      // setTimeout(() => {
+      //   instance.value = true
+      // }, 5)
     })
 
   }

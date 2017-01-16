@@ -15,7 +15,9 @@ const getModal = () => {
 
     modalDom = document.createElement('div')
     modalDom.className = 'modal-overlay'
-    document.getElementsByName('body')[0].appendChild(modalDom)
+
+    document.getElementsByTagName('body')[0].appendChild(modalDom)
+
 
   }
 
@@ -80,7 +82,7 @@ const PopupManager = {
       modalDom.classList.remove('modal-overlay-visible')
     }
 
-    modalDom.pop()
+    modalStack.pop()
 
   }
 }
