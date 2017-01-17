@@ -31,6 +31,8 @@ import Checkbox from 'packages/input/checkbox.vue'
 
 import Modal from 'packages/modal/index'
 
+import Device from 'packages/device'
+
 
 const install = function (Vue, opts = {}) {
   if (install.installed) {
@@ -69,9 +71,13 @@ const install = function (Vue, opts = {}) {
   Vue.component(Switch.name, Switch)
   Vue.component(Checkbox.name, Checkbox)
 
-  Vue.prototype.$modal = Modal;
-  Vue.prototype.$alert = Modal.alert;
-  Vue.prototype.$confirm = Modal.confirm;
+  Vue.prototype.$modal = Modal
+  Vue.prototype.$alert = Modal.alert
+  Vue.prototype.$confirm = Modal.confirm
+
+  Device.init()
+  Vue.prototype.$device = Device.device
+
 
 }
 

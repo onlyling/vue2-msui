@@ -104,6 +104,8 @@ export default {
 
       this.$emit('input', false)
 
+      this.$el.style.zIndex = -1
+
       PopupManager.closeModal(this._popupId)
 
     }

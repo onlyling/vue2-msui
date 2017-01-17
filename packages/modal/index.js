@@ -19,10 +19,29 @@ const initInstance = () => {
   })
 }
 
+const defaultCallBack = (instance, cb) => {
+
+  if (currentMsg) {
+
+    return function () {
+
+      cb && cb()
+
+      // instance.value = false
+      // popup中有对value = false 进行阻断，避免多次关闭，造成modal报错
+      // 貌似这样并不优雅，但是close是公共方法，也没啥问题
+      instance.close()
+
+    }
+
+  }
+
+}
+
 const showNextMsg = () => {
 
   if (!instance) {
-    initInstance();
+    initInstance()
   }
 
   if (msgQueue.length > 0) {
@@ -33,6 +52,11 @@ const showNextMsg = () => {
 
     for (let prop in options) {
       if (options.hasOwnProperty(prop)) {
+        if (prop === 'buttons') {
+          options[prop].forEach((obj, i) => {
+            obj.onClick = defaultCallBack(instance, obj.onClick)
+          })
+        }
         instance[prop] = options[prop]
       }
     }
@@ -45,9 +69,6 @@ const showNextMsg = () => {
 
       instance.value = true
 
-      // setTimeout(() => {
-      //   instance.value = true
-      // }, 5)
     })
 
   }
@@ -59,12 +80,14 @@ const Modal = (options) => {
   let opt = options || {}
   let title = opt.title || ''
   let text = opt.text || ''
-  let buttons = opt.buttons
+  let verticalButtons = opt.verticalButtons || ''
+  let buttons = opt.buttons || []
 
   msgQueue.push({
     options: {
       title,
       text,
+      verticalButtons,
       buttons
     }
   })
@@ -73,18 +96,39 @@ const Modal = (options) => {
 
 }
 
-Modal.alert = (text, title, callback) => {
+Modal.alert = (text, title, callbackOk) => {
   if (typeof title === 'function') {
-    callback = title
+    callbackOk = title
     title = ''
   }
   return Modal({
+    text: text || '',
     title: title,
-    text: text,
     buttons: [{
       text: MODAL_DEFAULT.modalButtonOk,
       bold: true,
-      onClick: callback
+      onClick: callbackOk
+    }]
+  })
+}
+
+Modal.confirm = (text, title, callbackOk, callbackCancel) => {
+  if (typeof title === 'function') {
+    callbackCancel = callbackOk
+    callbackOk = title
+    title = ''
+  }
+  return Modal({
+    text: text || '',
+    title: title,
+    buttons: [{
+      text: MODAL_DEFAULT.modalButtonCancel,
+      bold: true,
+      onClick: callbackCancel
+    }, {
+      text: MODAL_DEFAULT.modalButtonOk,
+      bold: true,
+      onClick: callbackOk
     }]
   })
 }
