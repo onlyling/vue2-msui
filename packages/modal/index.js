@@ -2,7 +2,11 @@ const MODAL_DEFAULT = {
   modalStack: true,
   modalButtonOk: '确定',
   modalButtonCancel: '取消',
-  modalPreloaderTitle: '加载中'
+  modalPreloaderTitle: '加载中',
+  defaultButtons: [{
+    text: '确定',
+    bold: true
+  }]
 }
 
 import Vue from 'vue'
@@ -78,10 +82,11 @@ const showNextMsg = () => {
 const Modal = (options) => {
 
   let opt = options || {}
+
   let title = opt.title || ''
   let text = opt.text || ''
   let verticalButtons = opt.verticalButtons || ''
-  let buttons = opt.buttons || []
+  let buttons = (opt.buttons && !!opt.buttons.length) ? opt.buttons : MODAL_DEFAULT.defaultButtons
 
   msgQueue.push({
     options: {

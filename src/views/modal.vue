@@ -23,6 +23,14 @@
           <ms-button @click="clickModal">modal</ms-button>
         </p>
 
+        <p>
+          <ms-button @click="clickModal2">modal</ms-button>
+        </p>
+
+        <p>
+          <ms-button @click="clickModal3">modal</ms-button>
+        </p>
+
       </div>
 
     </ms-content>
@@ -68,6 +76,29 @@
             text: '按钮3',
             bold: true
           }]
+        })
+      },
+      clickModal2(e) {
+        this.$modal({
+          text: '这里是文字',
+          title: '这里是标题',
+          buttons: [{
+            text: '按钮1',
+            bold: true
+          }, {
+            text: '按钮2',
+            bold: true
+          }, {
+            text: '按钮3',
+            bold: true
+          }]
+        })
+      },
+      clickModal3(e) {
+        this.$modal({
+          text: '这里是文字',
+          title: '这里是标题',
+          buttons: []
         })
       }
     }
