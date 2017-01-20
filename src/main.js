@@ -128,6 +128,16 @@ const routes = [{
     goback: true,
     title: 'iscroll2'
   }
+}, {
+  path: '/preloader',
+  name: 'preloader',
+  component: (resolve) => {
+    return require(['./views/preloader.vue'], resolve)
+  },
+  meta: {
+    goback: true,
+    title: '预加载'
+  }
 }]
 
 const router = new VueRouter({

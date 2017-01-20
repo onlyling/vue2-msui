@@ -104,7 +104,18 @@ export default {
 
       this.$emit('input', false)
 
-      this.$el.style.zIndex = -1
+      this.$nextTick(() => {
+
+        this.$el.classList.add('modal-out')
+
+        setTimeout(() => {
+          if (!this.value) {
+            this.$el.style.zIndex = -1
+            this.$el.classList.remove('modal-out')
+          }
+        }, 400)
+
+      })
 
       PopupManager.closeModal(this._popupId)
 

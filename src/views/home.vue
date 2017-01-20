@@ -114,6 +114,10 @@
           title: 'iscroll2',
           progress: 'X',
           link: 'iscroll2'
+        }, {
+          title: 'preloader',
+          progress: '20%',
+          link: 'preloader'
         }]
       }
     },

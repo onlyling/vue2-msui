@@ -138,4 +138,12 @@ Modal.confirm = (text, title, callbackOk, callbackCancel) => {
   })
 }
 
+Modal.closeModal = () => {
+
+  instance.close()
+  msgQueue = []
+  currentMsg = null
+
+}
+
 export default Modal

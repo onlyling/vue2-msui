@@ -30,6 +30,8 @@ import Switch from 'packages/input/switch.vue'
 import Checkbox from 'packages/input/checkbox.vue'
 
 import Modal from 'packages/modal/index'
+import Preloader from 'packages/preloader/index'
+import Toast from 'packages/toast/index'
 
 import Device from 'packages/device'
 
@@ -74,6 +76,12 @@ const install = function (Vue, opts = {}) {
   Vue.prototype.$modal = Modal
   Vue.prototype.$alert = Modal.alert
   Vue.prototype.$confirm = Modal.confirm
+
+  Vue.prototype.$confirm = Modal.confirm
+
+  Vue.prototype.$preloader = Preloader
+
+  Vue.prototype.$toast = Toast
 
   Device.init()
   Vue.prototype.$device = Device.device
