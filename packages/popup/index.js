@@ -19,6 +19,10 @@ export default {
     modal: {
       type: Boolean,
       default: true
+    },
+    ClosezIndexStatic: { // 闭关的时候，zIndex是否不变，默认需要改变
+      type: Boolean,
+      default: false
     }
   },
   beforeMount() {
@@ -110,15 +114,20 @@ export default {
 
         setTimeout(() => {
           if (!this.value) {
-            this.$el.style.zIndex = -1
+            if (!this.ClosezIndexStatic) {
+              this.$el.style.zIndex = -1
+            }
             this.$el.classList.remove('modal-out')
           }
         }, 400)
 
       })
 
-      PopupManager.closeModal(this._popupId)
+      this.doAfterClose()
 
+    },
+    doAfterClose() {
+      PopupManager.closeModal(this._popupId)
     }
   }
 
