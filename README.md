@@ -1,6 +1,6 @@
 # vue2
 
-> A Vue.js Component
+> A Vue.js UI Component
 > 
 > 深入学习Vue。
 
@@ -16,6 +16,16 @@ npm run dev
 # build for production with minification
 npm run build
 ```
+
+## SUI Mobile
+
+[SUI Mobile](http://m.sui.taobao.org) 是一套基于 Framework7 开发的UI库。它非常轻量、精美，只需要引入我们的CDN文件就可以使用，并且能兼容到 iOS 6.0+ 和 Android 4.0+，非常适合开发跨平台Web App。
+
+> 轻量的UI库
+
+SUI Mobile 非常轻量，核心库压缩Gzip后的JS、CSS网络传输体积总共只有52K，却提供了20+个常用的组件。
+
+对于只有HTML&CSS的组件，你只需要复制HTML代码既可以使用。他的大部分JS组件都是独立的 Zepto 插件，并且提供了 Zepto/jQuery 风格的API，你将会非常熟悉这种方式。
 
 ## 学习记录
 
@@ -115,7 +125,7 @@ webpack打包svg文件的时候有问题。。
 
 ## 完成的组件
 
-### 弹窗
+### 对话框
 
 ```javascript
 	
@@ -123,5 +133,90 @@ webpack打包svg文件的时候有问题。。
 		console.log('1212')
 	})
 
+	this.$Confirm('内容', '标题', () => {
+		console.log('确定')
+	}, () => {
+		console.log('取消')
+	})
+
+	this.$modal({
+		text: '文字',
+		title: '标题',
+		verticalButtons: true, // 按钮方向，默认false
+		buttons: [{
+			text:'取消',
+			bold: true, // 可选 设置为true会加粗按钮文本
+			onClick() { // 可选
+				console.log('弹窗关闭的时候响应')
+			}
+		}]
+	})
+
 ```
+
+### 带标题的加载指示器
+
+```javascript
+
+	this.$preloader()
+
+	this.$preloader('diy title')
+
+	this.$preloader.close()
+
+```
+
+### toast
+
+```javascript
+
+	this.$toast('操作失败')
+	
+	/**
+	 * 文字
+	 * x毫秒后消失
+	 * 自定义的class
+	 */
+	this.$toast('操作失败', 3000, 'diyClassName1 diyClassName2')
+
+```
+
+### 操作表
+
+你可以通过 color: "danger" 来指定按钮的文案为红色
+
+或者通过 bg: "danger" 来指定按钮的背景为红色
+
+```javascript
+
+	let self = this
+    
+    let buttons1 = [{
+      text: '请选择',
+      label: true
+    }, {
+      text: '卖出',
+      bold: true,
+      color: 'danger',
+      onClick: function () {
+        self.$alert("你选择了“卖出“");
+      }
+    }, {
+      text: '买入',
+      onClick: function () {
+        self.$alert("你选择了“买入“");
+      }
+    }]
+
+    let buttons2 = [{
+      text: '取消',
+      bg: 'danger'
+    }]
+
+    let groups = [buttons1, buttons2]
+    
+    self.$actions(groups)
+
+```
+
 
