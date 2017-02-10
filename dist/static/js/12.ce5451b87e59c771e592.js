@@ -1,0 +1,2 @@
+webpackJsonp([12,13],{87:function(t,e,n){var r,a,s=n(137);a=r=r||{},"object"!=typeof r.default&&"function"!=typeof r.default||(a=r=r.default),"function"==typeof a&&(a=a.options),a.render=s.render,a.staticRenderFns=s.staticRenderFns,t.exports=r},137:function(t,e){t.exports={render:function(){var t=this,e=(t.$createElement,t._c);return e("ms-page",[e("ms-bar-nav",{attrs:{title:t.$route.meta.title}}),t._v(" "),e("ms-content",[e("div",{staticClass:"content-padded"},[e("p",[t._v("说点什么好呢")])])])])},staticRenderFns:[]}}});
+//# sourceMappingURL=12.ce5451b87e59c771e592.js.map

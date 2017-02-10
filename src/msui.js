@@ -34,6 +34,8 @@ import Preloader from 'packages/preloader/index'
 import Toast from 'packages/toast/index'
 import Actions from 'packages/actions/index'
 
+import Popup from 'packages/popup/popup.vue'
+
 import Device from 'packages/device'
 
 
@@ -85,6 +87,8 @@ const install = function (Vue, opts = {}) {
   Vue.prototype.$toast = Toast
 
   Vue.prototype.$actions = Actions
+
+  Vue.component(Popup.name, Popup)
 
   Device.init()
   Vue.prototype.$device = Device.device

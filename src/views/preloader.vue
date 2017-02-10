@@ -21,13 +21,31 @@
           <ms-button @click="clickActions">actions</ms-button>
         </p>
 
+        <p>
+          <ms-button @click="clickPopup">popup</ms-button>
+        </p>
+
       </div>
 
     </ms-content>
+
+    <ms-popup :show="showPopup">
+      <div class="content-block">
+        <p>Services</p>
+        <p><a class="close-popup" @click="clickPopup">Close popup</a></p>
+        <p>Lorem ipsum dolor ...</p>
+      </div>
+    </ms-popup>
+
   </ms-page>
 </template>
 <script>
   export default{
+    data() {
+      return {
+        showPopup: false
+      }
+    },
     methods: {
       clickPreloader(e) {
         this.$preloader()
@@ -73,6 +91,9 @@
         let groups = [buttons1, buttons2]
         
         this.$actions(groups)
+      },
+      clickPopup() {
+        this.showPopup = !this.showPopup
       }
     }
   }
