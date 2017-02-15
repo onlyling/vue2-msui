@@ -684,7 +684,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     });
   },
   destroyed: function destroyed() {
-    self.scroll.destroy();
+    this.scroll.destroy();
   },
 
   methods: {
@@ -1064,7 +1064,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     });
   },
   destroyed: function destroyed() {
-    self.imgs.destroy();
+    this.imgs.destroy();
   }
 };
 
@@ -3282,4 +3282,4 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
 
 /***/ })
 ],[114]);
-//# sourceMappingURL=app.89a0ea2660b19bd14175.js.map
+//# sourceMappingURL=app.54e35d1ac77f8a1e2678.js.map

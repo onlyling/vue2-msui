@@ -76,7 +76,7 @@
     },
 
     destroyed() {
-      self.imgs.destroy()
+      this.imgs.destroy()
     }
   }
 </script>

@@ -91,7 +91,7 @@
 
     },
     destroyed() {
-      self.scroll.destroy()
+      this.scroll.destroy()
     },
     methods: {
       PullToRefresh() {
