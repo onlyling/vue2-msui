@@ -1,7 +1,7 @@
 {
   "name": "vue2-msui",
   "version": "1.0.0",
-  "description": "A Vue.js project",
+  "description": "A Vue.js UI Component (SUI Mobile)",
   "author": "凌子清 <onlylingstudio@gmail.com>",
   "private": true,
   "scripts": {
