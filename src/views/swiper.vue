@@ -5,7 +5,7 @@
 
     <ms-content>
 
-      <ms-swiper :imglist="imglist" :dots="true"></ms-swiper>
+      <ms-swiper :img-list="imglist" :dots="true" :snap-loop="true" :snap-speed="800"></ms-swiper>
 
     </ms-content>
   </ms-page>

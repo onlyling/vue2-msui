@@ -1,12 +1,11 @@
 <template>
-  <div class="ms-iscroll">
-    <div class="ms-iscroll-content" :style="{ 'transition-duration': scrollTopDuration + 'ms', 'transform': 'translate(0, ' + scrollTop + 'px) translateZ(0)'}">
+  <div class="ms-iscroll" ref="iscroll">
+    <div class="ms-iscroll-content" ref="iscrollContent">
       <slot></slot>
       <div class="infinite-scroll-preloader" v-if="!!infiniteToRefresh">
         <div class="preloader"></div>
       </div>
     </div>
-    <div class="ms-iscroll-bar" v-if="scrollbars" :style="{'transition-duration': barTopDuration + 'ms', 'top': barTop + 'px'}"></div>
     <div class="pull-to-refresh-layer ms-pull-to-refresh" v-show="showPTR" :class="[PTRClassName]">
       <div class="preloader"></div>
       <div class="pull-to-refresh-arrow"></div>
@@ -14,303 +13,126 @@
   </div>
 </template>
 <script>
+
+  import BScroll from 'better-scroll'
+
   export default {
     name: 'ms-iscroll',
     props: {
-      scrollbars: {
-        type: Boolean,
-        default: true
-      },
-      fadeScrollbars: {
-        type: Boolean,
-        default: true,
-      },
       startY: {
-        type: Number,
-        default: 0
-      },
-      pullToRefresh: Function,
-      ptrDistance: {
-        type: Number,
-        default: 55
-      },
-      infiniteToRefresh: Function
+          type: Number,
+          default: 0
+        },
+        pullToRefresh: Function,
+        infiniteToRefresh: Function
     },
     data() {
       return {
-        boxHeight: 0, // 最外层的高度，视觉高度
-        listHeight: 0, // 列表高度
-        barHeight: 0,
-        barTop: 0,
-        scrollTop: 0,
-        scrollTopDuration: 600,
-        barTopDuration: 600,
-        barHideTimer: null,
-        scrollTopTimer: null,
-        showPTR: false,
-        loading: false,
-        pullToRefreshLoading: false,
-        infiniteToRefreshLoading: false
-      }
-    },
-    computed: {
-      barMaxTop() {
-        return this.boxHeight - this.barHeight
-      },
-      listMaxScrollTop() {
-        return this.listHeight - this.boxHeight
-      },
-      PTRClassName() {
-        if (!!this.pullToRefresh) {
-
-          if (this.pullToRefreshLoading == true) {
-            return 'loading'
-          }
-
-          if(this.scrollTop > 0 && this.scrollTop <= this.ptrDistance){
-            return ''
-          } else {
-            return 'down'
-          }
-
-        } else {
-          return ''
-        }
+        showPTR: false, // 是否显示下拉刷新的提示
+        PTRClassName: [], // 下拉刷新时的状态class
+        pullToRefreshLoading: false, // 下拉刷新加载中状态
+        loading: false // 是否在加载数据
       }
     },
     mounted() {
-      // 初始化一些数据
+
       let self = this
-      let domList = self.$el.querySelector('.ms-iscroll-content')
-      let domBar = self.$el.querySelector('.ms-iscroll-bar')
 
-      self.boxHeight = self.$el.offsetHeight
-      self.barHeight = domBar.offsetHeight
-      self.scrollTop = self.startY
+      self.scroll = new BScroll(self.$refs.iscroll, {
+        probeType: 1
+      })
 
-      let MOVED = 0
-      let START_Y = 0
-      let START_STATIC_Y = 0
-      let MOVE_TIME = 0
+      self.scroll.on('scroll', (pos) => {
 
-      self.startHandler = (event) => {
+        if (pos.y > 10) {
+          self.showPTR = true
 
-        if (event.targetTouches.length === 1) {
-          const _touch = event.targetTouches[0]
-          START_Y = _touch.pageY
-          START_STATIC_Y = self.scrollTop
-          if (scrollbars) {
-            domBar.classList.add('active')
-            clearTimeout(self.barHideTimer)
-          }
-          self.listHeight = domList.offsetHeight
-          MOVE_TIME = (new Date()).getTime()
-          self.scrollTopDuration = 0
-          self.barTopDuration = 0
-        }
+          if (pos.y > 55) {
+            self.PTRClassName = 'down'
 
-      }
-
-      self.moveHandler = (event) => {
-
-        // 解决手机上滑动卡顿
-        event.preventDefault()
-
-        if (event.targetTouches.length === 1) {
-
-          const _touch = event.targetTouches[0]
-          let moved = _touch.pageY - START_Y
-          let scrollTop = START_STATIC_Y + moved
-          
-          // 临界点的一些判断
-          if (scrollTop > 0) {
-
-            scrollTop = Math.floor(scrollTop / 2)
-
-            if (self.pullToRefreshLoading) {
-              scrollTop = 0
+            if (pos.y > 85) {
+              self.PTRClassName = 'loading'
+              self.pullToRefreshLoading = true
+            } else {
+              self.PTRClassName = 'down'
+              self.pullToRefreshLoading = false
             }
 
+          } else {
+            self.PTRClassName = ''
+            self.pullToRefreshLoading = false
           }
 
-          let maxY = -self.listMaxScrollTop
-          if ( scrollTop < -self.listMaxScrollTop) {
+        } else {
+          self.showPTR = false
+          self.PTRClassName = ''
 
-            scrollTop = -self.listMaxScrollTop + Math.floor((scrollTop + self.listMaxScrollTop) / 3 * 2)
-
+          if (pos.y <= -(self.$refs.iscrollContent.offsetHeight - self.$refs.iscroll.offsetHeight - 150)) {
+            self.InfiniteToRefresh()
           }
-
-          self.scrollTop = scrollTop
-
-          self.scrollTopDuration = 0
-          self.barTopDuration = 0
 
         }
 
-      }
+      })
 
-      self.endHandler = (event) => {
+      self.scroll.on('scrollEnd', () => {
 
-        if (event.changedTouches.length === 1) {
-
-          self.scrollTopDuration = 1500
-          self.barTopDuration = 1500
-          
-          const _touch = event.changedTouches[0]
-          let moved = _touch.pageY - START_Y
-          let scrollTop = START_STATIC_Y + moved
-          const _time = (new Date()).getTime() - MOVE_TIME
-
-          // 快速滑动
-          if (scrollTop < 0 && scrollTop >= -self.listMaxScrollTop) {
-            
-            self.setTransition(_time, moved)
-
-          }
-
-          // 临界点的一些判断
-          if (scrollTop > 0) {
-
-            if (scrollTop > self.ptrDistance) {
-
-              scrollTop = Math.floor(scrollTop / 2)
-
-              // 上拉刷新的一些操作来了
-              !!self.pullToRefresh && self.PullToRefresh()
-
-            }
-
-            self.setScrollTop(scrollTop, true)
-
-          }
-
-          let maxY = -self.listMaxScrollTop
-          if ( scrollTop < maxY) {
-
-            scrollTop = maxY + Math.floor((scrollTop - maxY) / 3 * 2)
-
-            self.infiniteToRefresh && self.InfiniteToRefresh()
-
-            self.setScrollTop(scrollTop - maxY, false)
-
-          }
-
-          self.barHideTimer = setTimeout(() => {
-            domBar.classList.remove('active')
-          }, 2 * 1000)
-
+        if (!self.pullToRefreshLoading) {
+          self.showPTR = false
+          self.PTRClassName = ''
+        } else {
+          self.showPTR = true
+          self.PTRClassName = 'loading'
+          // 加载数据
+          this.PullToRefresh()
         }
 
-      }
-
-      self.$el.addEventListener('touchstart', self.startHandler, false)
-      self.$el.addEventListener('touchmove', self.moveHandler, false)
-      self.$el.addEventListener('touchend', self.endHandler, false)
+      })
 
     },
     destroyed() {
-      this.$el.removeEventListener('touchstart', this.startHandler)
-      this.$el.removeEventListener('touchmove', this.moveHandler)
-      this.$el.removeEventListener('touchend', this.endHandler)
-    },
-    watch: {
-      scrollTop(newVal, oldVal) {
-        let self = this
-
-        self.setBarTop()
-
-        if (self.pullToRefresh) {
-
-          if (newVal > 0) {
-            self.showPTR = true
-
-          } else {
-            self.showPTR = false
-          }
-
-        }
-      }
+      self.scroll.destroy()
     },
     methods: {
-      setScrollTop(SPACE_Y, direction, critical = true) {
-        /**
-         * SPACE_Y 间隔距离
-         * direction 方向 true 上 false 下
-         * critical 是否是临界点 默认true
-         */
+      PullToRefresh() {
 
-        if (this.pullToRefreshLoading) {
+        let self = this
+
+        if (self.loading) {
           return
         }
 
-        let self = this
-        let TARGET_Y = self.scrollTop - SPACE_Y
+        self.loading = true
 
-        if (direction && TARGET_Y > 0) {
-          TARGET_Y = 0
-        }
+        self.pullToRefresh(() => {
 
-        if (!direction && TARGET_Y < -self.listMaxScrollTop) {
-          TARGET_Y = -self.listMaxScrollTop
-        }
+          self.showPTR = false
+          self.PTRClassName = ''
+          self.loading = false
 
-        self.scrollTop = TARGET_Y
-
-      },
-      setBarTop() {
-
-        let self = this
-        let barTop = -(+(self.scrollTop / self.listMaxScrollTop * self.barMaxTop).toFixed(3))
-
-        if (barTop <= 0) {
-          barTop = 0
-        }
-
-        if (barTop >= self.barMaxTop) {
-          barTop = self.barMaxTop
-        }
-
-        self.barTop = barTop
-
-      },
-      setTransition(times, moved) {
-
-        let self = this
-        let SPACE_Y = 0
-        let _distance = moved >= 0
-        let _moved = Math.abs(moved)
-        let _speed = _moved / times
-        let _destination = _speed * 1500
-
-        SPACE_Y = Math.round(_destination / 3) * (_distance ? -1 : 1)
-
-        self.setScrollTop(SPACE_Y, _distance, false)
-
-      },
-      PullToRefresh() {
-        let self = this
-        self.scrollTop = self.$el.querySelector('.ms-pull-to-refresh').offsetHeight
-
-        if (self.pullToRefreshLoading) {
-            return
-        } else {
-          self.pullToRefreshLoading = true
-          self.pullToRefresh(() => {
-            self.pullToRefreshLoading = false
-            self.scrollTop = 0
+          self.$nextTick(() => {
+            self.scroll.refresh()
           })
-        }
+
+        })
+
       },
       InfiniteToRefresh() {
         let self = this
+
         if (self.loading) {
           return
-        } else {
-          self.loading = true
-          self.infiniteToRefresh(() => {
-            self.loading = false
-          })
         }
+
+        self.loading = true
+
+        self.infiniteToRefresh(() => {
+          self.loading = false
+          self.$nextTick(() => {
+            self.scroll.refresh()
+          })
+        })
+
       }
     }
   }

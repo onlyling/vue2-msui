@@ -1,5 +1,14 @@
 # 滚动组件
 
+> 好像有点用了
+
+依赖 `better-scroll`
+
+更新后完全由`better-scroll`支配，滚动不卡顿了，有点意思。
+
+* `pullToRefresh` 下拉刷新的函数 必许参数 next 数据更新后执行`next()`
+* `infiniteToRefresh` 到列表尾部的函数 必许参数 next 数据更新后执行`next()`
+
 > 感觉是一个并没有什么使用的东西。
 
 ## 接口

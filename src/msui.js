@@ -100,7 +100,7 @@ if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue)
 }
 
-module.exports = {
+export default {
   version: '0.0.1',
   install
 }

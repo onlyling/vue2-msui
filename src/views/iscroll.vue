@@ -29,12 +29,14 @@
       pullToRefresh(next) {
         setTimeout(() => {
           this.list = new Array(20)
+          console.log('下拉刷新')
           next()
         }, 2000)
       },
       infiniteToRefresh(next) {
         setTimeout(() => {
           this.list = this.list.concat(new Array(20))
+          console.log('无限加载')
           next()
         }, 2000)
       }
