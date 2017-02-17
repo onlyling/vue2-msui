@@ -1,2 +1,1 @@
 webpackJsonp([12,15],{140:function(t,e){t.exports={render:function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("ms-page",[n("ms-bar-nav",{attrs:{title:t.$route.meta.title}}),t._v(" "),n("ms-content",[n("div",{staticClass:"content-padded"},[n("p",[t._v("说点什么好呢")])])])],1)},staticRenderFns:[]}},68:function(t,e,n){var s=n(0)(null,n(140),null,null);t.exports=s.exports}});
-//# sourceMappingURL=12.e840dc6b5b5129ca7d2e.js.map

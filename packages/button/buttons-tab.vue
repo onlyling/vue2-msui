@@ -1,6 +1,6 @@
 <template>
   <div class="buttons-tab">
-    <button class="tab-link ms-button" v-for="item in nav" :class="{active: item.active}" @click="handleClick" v-html="item.text"></button>
+    <button class="tab-link button" v-for="item in nav" :class="{active: item.active}" @click="handleClick" v-html="item.text"></button>
   </div>
 </template>
 <script>

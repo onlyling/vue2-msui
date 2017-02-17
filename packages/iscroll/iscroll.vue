@@ -6,7 +6,7 @@
         <div class="preloader"></div>
       </div>
     </div>
-    <div class="pull-to-refresh-layer ms-pull-to-refresh" v-show="showPTR" :class="[PTRClassName]">
+    <div class="pull-to-refresh-layer ms-pull-to-refresh" v-show="showPTR" :class="[PTRClassName]" v-if="!!pullToRefresh">
       <div class="preloader"></div>
       <div class="pull-to-refresh-arrow"></div>
     </div>
@@ -98,7 +98,7 @@
 
         let self = this
 
-        if (self.loading) {
+        if (self.loading || !!!self.pullToRefresh) {
           return
         }
 
@@ -120,7 +120,7 @@
       InfiniteToRefresh() {
         let self = this
 
-        if (self.loading) {
+        if (self.loading || !!!self.infiniteToRefresh) {
           return
         }
 

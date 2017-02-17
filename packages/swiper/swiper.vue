@@ -56,12 +56,14 @@
       self.winWidth = window.innerWidth
       self.maxWidth = (self.imgList.length + (self.snapLoop ? 2 : 0)) * self.winWidth
 
+      // 要设置容器的宽度，需延迟到DOM更新后再绑定事件
       self.$nextTick(() => {
 
         self.imgs = new BScroll(self.$refs.imgs, {
           scrollX: true,
           scrollY: false,
           momentum: false,
+          click: true,
           snap: true,
           snapLoop: self.snapLoop,
           snapSpeed: self.snapSpeed

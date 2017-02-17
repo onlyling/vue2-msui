@@ -88,7 +88,7 @@
           link: 'list'
         }, {
           title: '表单',
-          progress: '50%',
+          progress: '10%',
           link: 'form'
         }, {
           title: '卡片',

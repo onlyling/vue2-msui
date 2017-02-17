@@ -126,7 +126,7 @@
     },
     methods: {
       clickAlert(e){
-        alert(e.target.innerHTML)
+        this.$alert(e.target.innerHTML)
       }
     }
   }

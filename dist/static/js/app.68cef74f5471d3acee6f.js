@@ -692,7 +692,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       var self = this;
 
-      if (self.loading) {
+      if (self.loading || !!!self.pullToRefresh) {
         return;
       }
 
@@ -712,7 +712,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     InfiniteToRefresh: function InfiniteToRefresh() {
       var self = this;
 
-      if (self.loading) {
+      if (self.loading || !!!self.infiniteToRefresh) {
         return;
       }
 
@@ -1053,6 +1053,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         scrollX: true,
         scrollY: false,
         momentum: false,
+        click: true,
         snap: true,
         snapLoop: self.snapLoop,
         snapSpeed: self.snapSpeed
@@ -1881,7 +1882,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "buttons-tab"
   }, _vm._l((_vm.nav), function(item) {
     return _c('button', {
-      staticClass: "tab-link ms-button",
+      staticClass: "tab-link button",
       class: {
         active: item.active
       },
@@ -2451,7 +2452,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "infinite-scroll-preloader"
   }, [_c('div', {
     staticClass: "preloader"
-  })]) : _vm._e()], 2), _vm._v(" "), _c('div', {
+  })]) : _vm._e()], 2), _vm._v(" "), (!!_vm.pullToRefresh) ? _c('div', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -2464,7 +2465,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "preloader"
   }), _vm._v(" "), _c('div', {
     staticClass: "pull-to-refresh-arrow"
-  })])])
+  })]) : _vm._e()])
 },staticRenderFns: []}
 
 /***/ }),
@@ -3282,4 +3283,3 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
 
 /***/ })
 ],[114]);
-//# sourceMappingURL=app.54e35d1ac77f8a1e2678.js.map
